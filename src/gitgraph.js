@@ -717,51 +717,55 @@
    * @this Commit
    **/
   Commit.prototype.arrow = function Arrow () {
+    var src = this.parentCommit;
+    var dst = this;
+
     // Options
-    var size = this.template.arrow.size;
-    var color = this.template.arrow.color || this.branch.color;
+    var size = dst.template.arrow.size;
+    var color = dst.template.arrow.color || dst.branch.color;
+
 
     // Angles calculation
     var alpha = Math.atan2(
-        this.parentCommit.y - this.y,
-        this.parentCommit.x - this.x
+        src.y - dst.y,
+        src.x - dst.x
     );
 
     // Merge & Fork case
-    if ( this.type === "mergeCommit" || this === this.branch.commits[0] /* First commit */ ) {
+    if ( dst.type === "mergeCommit" || dst === dst.branch.commits[0] /* First commit */ ) {
       alpha = Math.atan2(
-          this.template.branch.spacingY * (this.parentCommit.branch.column - this.branch.column) + this.template.commit.spacingY,
-          this.template.branch.spacingX * (this.parentCommit.branch.column - this.branch.column) + this.template.commit.spacingX
+          dst.template.branch.spacingY * (src.branch.column - dst.branch.column) + dst.template.commit.spacingY,
+          dst.template.branch.spacingX * (src.branch.column - dst.branch.column) + dst.template.commit.spacingX
       );
-      color = this.parentCommit.branch.color;
+      color = src.branch.color;
     }
 
     var delta = Math.PI / 7; // Delta between left & right (radian)
 
     // Top
-    var h = this.template.commit.dot.size + this.template.arrow.offset;
-    var x1 = h * Math.cos( alpha ) + this.x;
-    var y1 = h * Math.sin( alpha ) + this.y;
+    var h = dst.template.commit.dot.size + dst.template.arrow.offset;
+    var x1 = h * Math.cos( alpha ) + dst.x;
+    var y1 = h * Math.sin( alpha ) + dst.y;
 
     // Bottom left
-    var x2 = (h + size) * Math.cos( alpha - delta ) + this.x;
-    var y2 = (h + size) * Math.sin( alpha - delta ) + this.y;
+    var x2 = (h + size) * Math.cos( alpha - delta ) + dst.x;
+    var y2 = (h + size) * Math.sin( alpha - delta ) + dst.y;
 
     // Bottom center
-    var x3 = (h + size / 2) * Math.cos( alpha ) + this.x;
-    var y3 = (h + size / 2) * Math.sin( alpha ) + this.y;
+    var x3 = (h + size / 2) * Math.cos( alpha ) + dst.x;
+    var y3 = (h + size / 2) * Math.sin( alpha ) + dst.y;
 
     // Bottom right
-    var x4 = (h + size) * Math.cos( alpha + delta ) + this.x;
-    var y4 = (h + size) * Math.sin( alpha + delta ) + this.y;
+    var x4 = (h + size) * Math.cos( alpha + delta ) + dst.x;
+    var y4 = (h + size) * Math.sin( alpha + delta ) + dst.y;
 
-    this.context.beginPath();
-    this.context.fillStyle = color;
-    this.context.moveTo( x1, y1 ); // Top
-    this.context.lineTo( x2, y2 ); // Bottom left
-    this.context.quadraticCurveTo( x3, y3, x4, y4 ); // Bottom center
-    this.context.lineTo( x4, y4 ); // Bottom right
-    this.context.fill();
+    dst.context.beginPath();
+    dst.context.fillStyle = color;
+    dst.context.moveTo( x1, y1 ); // Top
+    dst.context.lineTo( x2, y2 ); // Bottom left
+    dst.context.quadraticCurveTo( x3, y3, x4, y4 ); // Bottom center
+    dst.context.lineTo( x4, y4 ); // Bottom right
+    dst.context.fill();
   };
 
   // --------------------------------------------------------------------
