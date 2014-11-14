@@ -717,8 +717,8 @@
    * @this Commit
    **/
   Commit.prototype.arrow = function Arrow () {
-    var src = this.parentCommit;
-    var dst = this;
+    var dst = this.parentCommit;
+    var src = this;
 
     // Options
     var size = dst.template.arrow.size;
