@@ -732,7 +732,7 @@
     );
 
     // Merge & Fork case
-    if ( dst.type === "mergeCommit" || dst === dst.branch.commits[0] /* First commit */ ) {
+    if ( this.type === "mergeCommit" || this === this.branch.commits[0] /* First commit */ ) {
       alpha = Math.atan2(
           dst.template.branch.spacingY * (src.branch.column - dst.branch.column) + dst.template.commit.spacingY,
           dst.template.branch.spacingX * (src.branch.column - dst.branch.column) + dst.template.commit.spacingX
@@ -743,7 +743,7 @@
     var delta = Math.PI / 7; // Delta between left & right (radian)
 
     // Top
-    var h = dst.template.commit.dot.size + dst.template.arrow.offset;
+    var h = this.template.commit.dot.size + this.template.arrow.offset;
     var x1 = h * Math.cos( alpha ) + dst.x;
     var y1 = h * Math.sin( alpha ) + dst.y;
 
