@@ -739,7 +739,6 @@
           dst.template.branch.spacingX * (src.branch.column - dst.branch.column) + dst.template.commit.spacingX
       );
       color = src.branch.color;
-      direction = -1;
     }
 
     var delta = Math.PI / 7; // Delta between left & right (radian)
