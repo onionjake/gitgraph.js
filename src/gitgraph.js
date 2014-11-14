@@ -719,6 +719,7 @@
   Commit.prototype.arrow = function Arrow () {
     var dst = this.parentCommit;
     var src = this;
+    var direction = -1;
 
     // Options
     var size = dst.template.arrow.size;
@@ -748,12 +749,12 @@
     var y1 = h * Math.sin( alpha ) + dst.y;
 
     // Bottom left
-    var x2 = (h + size) * Math.cos( alpha - delta ) + dst.x;
-    var y2 = (h + size) * Math.sin( alpha - delta ) + dst.y;
+    var x2 = (h + size) * Math.cos( alpha - delta ) + direction * dst.x;
+    var y2 = (h + size) * Math.sin( alpha - delta ) + direction * dst.y;
 
     // Bottom center
-    var x3 = (h + size / 2) * Math.cos( alpha ) + dst.x;
-    var y3 = (h + size / 2) * Math.sin( alpha ) + dst.y;
+    var x3 = (h + size / 2) * Math.cos( alpha ) + direction * dst.x;
+    var y3 = (h + size / 2) * Math.sin( alpha ) + direction * dst.y;
 
     // Bottom right
     var x4 = (h + size) * Math.cos( alpha + delta ) + dst.x;
